@@ -1,0 +1,16 @@
+{
+  "name": "Daily Brief Control",
+  "short_name": "Daily Brief",
+  "description": "Manage recipients, teams, and send time for the daily sports brief.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#14452F",
+  "background_color": "#f3f2f2",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
