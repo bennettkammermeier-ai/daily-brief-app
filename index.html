@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daily Brief</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Daily Brief">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#14452F">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () { navigator.serviceWorker.register("./sw.js").catch(function () {}); });
+  }
+</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+/* Modernist design system — inlined so the app is 4 files, not a folder tree. */
+/* Modernist — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap');
+
+:root {
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201e1d;
+  --color-accent: #ec3013;
+  --color-accent-2: #e15b47;
+  --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
+
+  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
+     same step of any role matches the others in visual value. */
+  --color-neutral-100: #f8f4f4;
+  --color-neutral-200: #eae7e7;
+  --color-neutral-300: #d7d3d3;
+  --color-neutral-400: #bab6b6;
+  --color-neutral-500: #9b9797;
+  --color-neutral-600: #7d7979;
+  --color-neutral-700: #605d5d;
+  --color-neutral-800: #444141;
+  --color-neutral-900: #2d2b2b;
+
+  --color-accent-100: #fff2ef;
+  --color-accent-200: #ffe0d9;
+  --color-accent-300: #ffc4b8;
+  --color-accent-400: #ff9783;
+  --color-accent-500: #ff563c;
+  --color-accent-600: #dd2b0f;
+  --color-accent-700: #ae1800;
+  --color-accent-800: #7c1405;
+  --color-accent-900: #4d170e;
+
+  --color-accent-2-100: #fff2ef;
+  --color-accent-2-200: #ffe0da;
+  --color-accent-2-300: #ffc4b9;
+  --color-accent-2-400: #ff9784;
+  --color-accent-2-500: #ef6853;
+  --color-accent-2-600: #c94b39;
+  --color-accent-2-700: #9e3526;
+  --color-accent-2-800: #71261b;
+  --color-accent-2-900: #471d16;
+
+  --font-heading: "Archivo", system-ui, sans-serif;
+  --font-heading-weight: 800;
+  --font-body: "Archivo", system-ui, sans-serif;
+
+  --space-1: 4.0px;
+  --space-2: 8.0px;
+  --space-3: 12.0px;
+  --space-4: 16.0px;
+  --space-6: 24.0px;
+  --space-8: 32.0px;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+
+  /* Elevation — derived from the ground: soft ink-tinted shadows on a
+     light theme, a hairline edge + ambient darkness on a dark one. */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+
+.grayscale{filter:grayscale(1) contrast(1.08)}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Components — built with the tokens above. Plain CSS
+   on plain HTML: no JavaScript, no build step. Each class is documented in
+   readme.md and demonstrated in foundations/ and components/.
+   ══════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
+}
+h1 { font-size: 42px; }
+h2 { font-size: 32px; }
+h3 { font-size: 25px; }
+h4 { font-size: 20px; }
+h5 { font-size: 16px; }
+h6 { font-size: 13px; }
+h6 { letter-spacing: 0.08em; text-transform: uppercase; }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-accent); text-underline-offset: 3px; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+figcaption {
+  font-size: 11px; margin-top: var(--space-1);
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* — rules — */
+.hr {
+  height: 2px; border: 0; margin: var(--space-4) 0;
+  background: var(--color-divider);
+}
+
+/* — buttons — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; line-height: 1.2; color: var(--color-text); /* matches the .input's 14px —
+     the pair sits side by side in sign-up rows */
+  background: transparent; border: 1px solid transparent;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  border-radius: var(--radius-md);
+}
+.btn svg { display: block; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--color-accent); color: var(--color-bg); }
+.btn-primary:hover { background: var(--color-accent-600); }
+.btn-primary:active { background: var(--color-accent-700); }
+.btn-secondary { border-color: var(--color-divider); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-icon { width: 36px; height: 36px; padding: 0; }
+.btn-block { width: 100%; margin-top: var(--space-2); justify-content: flex-start; text-align: left; }
+
+/* — forms — */
+.field > label {
+  display: block; font-size: 12px; margin-bottom: 5px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+.input {
+  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
+  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+textarea.input { min-height: 90px; resize: vertical; }
+.radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
+.radio input, .seg-opt input {
+  position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+.radio .dot {
+  width: 16px; height: 16px; flex: none; border-radius: 50%;
+  border: 1.5px solid var(--color-divider);
+}
+.radio:hover .dot { border-color: var(--color-accent); }
+.radio input:checked + .dot {
+  border-color: var(--color-accent); background: var(--color-accent);
+  box-shadow: inset 0 0 0 4px var(--color-bg);
+}
+.radio input:focus-visible + .dot { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.seg {
+  display: inline-flex; overflow: hidden;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.seg-opt {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; font-size: 13px; cursor: pointer;
+}
+.seg-opt + .seg-opt { border-left: 1px solid var(--color-divider); }
+.seg-opt:has(input:checked) { background: var(--color-accent); color: var(--color-bg); }
+.seg-opt:not(:has(input:checked)):hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+
+/* — cards — */
+.card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
+}
+.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 17px; line-height: 1.2;
+}
+.card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
+.card-meta {
+  display: flex; align-items: center; gap: 6px; font-size: 11px;
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+}
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+.elev-lg { box-shadow: var(--shadow-lg); }
+
+/* — tags — */
+.tag {
+  display: inline-flex; align-items: center; font-size: 11px;
+  letter-spacing: 0.02em; padding: 3px 10px;
+  border-radius: calc(var(--radius-md) * 0.75);
+}
+.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+.tag-accent-2 { background: var(--color-accent-2-100); color: var(--color-accent-2-800); }
+.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+/* — navigation — */
+.nav {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid var(--color-divider);
+}
+.nav-brand {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 18px; margin-right: auto;
+}
+.nav a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav a:hover, .nav a[aria-current='page'] { color: var(--color-accent); }
+
+/* — tables — */
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  padding: var(--space-2); border-bottom: 2px solid var(--color-divider);
+}
+.table td {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-divider);
+}
+.table tbody tr:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); }
+
+/* — dialog — */
+.dialog-backdrop {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-neutral-900) 50%, transparent);
+}
+.dialog {
+  width: min(440px, 100%); display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-4); border-radius: var(--radius-lg);
+  background: var(--color-surface); box-shadow: var(--shadow-lg);
+}
+.dialog-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 20px;
+}
+.dialog-body { font-size: 14px; opacity: 0.85; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-2); }
+
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--color-bg); }
+  a { color: #14452F; text-decoration: none; }
+  a:hover { color: #0E3121; text-decoration: underline; }
+  :focus-visible { outline: 2px solid #14452F !important; outline-offset: 2px; }
+  ::selection { background: color-mix(in srgb, #14452F 20%, transparent); }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); font-size: 14px; line-height: 1.45; -webkit-text-size-adjust: 100%;">
+
+  <sc-if value="{{ isGate }}" hint-placeholder-val="{{ true }}">
+    <div style="{{ gateGridStyle }}">
+      <div style="{{ gateLeftStyle }}">
+        <div style="display: flex; flex-direction: column; gap: 32px;">
+          <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
+            <svg width="30" height="30" viewBox="0 0 48 48" role="img" aria-label="Daily Brief"><rect width="48" height="48" fill="#14452F"></rect><text x="12" y="36" text-anchor="middle" font-family="'Instrument Serif', Georgia, serif" font-size="34" fill="#FFFFFF">D</text><rect x="23" y="0" width="2" height="48" fill="#FFFFFF"></rect><text x="36" y="36" text-anchor="middle" font-family="'Instrument Serif', Georgia, serif" font-size="34" fill="#FFFFFF">B</text></svg>
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase;">Daily Brief</span>
+            <span style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-600);">Control</span>
+          </div>
+          <h1 style="{{ gateTitleStyle }}">Manage your own edition.</h1>
+          <p style="margin: 0; max-width: 42ch; font-size: 16px; color: var(--color-neutral-800); text-wrap: pretty;">Teams, recipients, and send time — no logins to remember. Enter the address your brief arrives at and we'll email you a link that opens your panel.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px; max-width: 400px;">
+          <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div class="field" style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">Email address</label>
+                <input class="input" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" value="{{ email }}" onChange="{{ onEmail }}" style="{{ inputStyle }}">
+              </div>
+              <button class="btn btn-primary" onClick="{{ sendLink }}" style="{{ brandBlockBtnStyle }}">Send me a link</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ sent }}">
+            <div style="border: 2px solid var(--color-text); padding: 24px; display: flex; flex-direction: column; gap: 12px; animation: riseIn 260ms ease-out;">
+              <span style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #14452F;">Link sent</span>
+              <p style="margin: 0; font-size: 15px; overflow-wrap: anywhere;">Check <strong>{{ email }}</strong> — the link is good for 30 minutes and opens straight into your edition.</p>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onClick="{{ enter }}" style="{{ brandTapBtnStyle }}">Open my panel</button>
+                <button class="btn btn-ghost" onClick="{{ reset }}" style="{{ ghostBtnStyle }}" style-hover="background: var(--color-neutral-200)">Use a different email</button>
+              </div>
+            </div>
+          </sc-if>
+          <p style="margin: 0; font-size: 12px; color: var(--color-neutral-600);">Only addresses already on a brief can request a link.</p>
+        </div>
+      </div>
+
+      <div style="{{ gateRightStyle }}">
+        <span style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">Running now</span>
+        <div style="display: flex; flex-direction: column; border-top: 2px solid var(--color-divider);">
+          <sc-for list="{{ gateStats }}" as="row" hint-placeholder-count="4">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 16px 0; border-bottom: 2px solid var(--color-divider);">
+              <span style="font-size: 13px; color: var(--color-neutral-800);">{{ row.label }}</span>
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.01em;">{{ row.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isApp }}">
+    <div style="{{ shellStyle }}">
+
+      <aside style="{{ asideStyle }}">
+        <div style="{{ asideTopStyle }}">
+          <div style="display: flex; align-items: baseline; gap: 10px; flex: none;">
+            <svg width="24" height="24" viewBox="0 0 48 48" role="img" aria-label="Daily Brief"><rect width="48" height="48" fill="#14452F"></rect><text x="12" y="36" text-anchor="middle" font-family="'Instrument Serif', Georgia, serif" font-size="34" fill="#FFFFFF">D</text><rect x="23" y="0" width="2" height="48" fill="#FFFFFF"></rect><text x="36" y="36" text-anchor="middle" font-family="'Instrument Serif', Georgia, serif" font-size="34" fill="#FFFFFF">B</text></svg>
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;">Daily Brief</span>
+          </div>
+          <div style="{{ identityStyle }}">
+            <span style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-600);">Signed in as</span>
+            <span style="font-size: 13px; font-weight: 600; overflow-wrap: anywhere;">{{ sessionEmail }}</span>
+            <span style="font-size: 12px; color: var(--color-neutral-700);">{{ roleNote }}</span>
+            <button onClick="{{ openGh }}" style="{{ connectStyle }}" style-hover="background: var(--color-neutral-200)">
+              <span style="{{ connectDotStyle }}"></span>
+              <span>{{ connectLabel }}</span>
+            </button>
+          </div>
+        </div>
+
+        <div style="{{ editionsBlockStyle }}">
+          <span style="{{ editionsLabelStyle }}">Editions</span>
+          <div style="{{ editionsListStyle }}">
+            <sc-for list="{{ editionList }}" as="ed" hint-placeholder-count="3">
+              <button onClick="{{ ed.select }}" style="{{ ed.navStyle }}">
+                <span style="font-family: var(--font-heading); font-weight: 700; font-size: 14px; white-space: nowrap;">{{ ed.label }}</span>
+                <span style="font-size: 12px; color: var(--color-neutral-700); white-space: nowrap;">{{ ed.summary }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </aside>
+
+      <main style="display: flex; flex-direction: column; min-width: 0;">
+
+        <header style="{{ headerStyle }}">
+          <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+            <span style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">Edition</span>
+            <h1 style="{{ pageTitleStyle }}">{{ ed.label }}</h1>
+            <span style="{{ accentNoteStyle }}">{{ accentNote }}</span>
+          </div>
+          <div style="{{ headerActionsStyle }}">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-600);">Next send</span>
+              <span style="font-size: 13px; font-weight: 600; white-space: nowrap;">{{ nextSend }}</span>
+            </div>
+            <button class="btn btn-secondary" onClick="{{ openPreview }}" style="{{ tapStyle }}">Preview email</button>
+          </div>
+        </header>
+
+        <div style="{{ colsStyle }}">
+
+          <section style="{{ sectionAStyle }}">
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Recipients</h2>
+              <p style="margin: 0; font-size: 13px; color: var(--color-neutral-700); text-wrap: pretty;">Each address gets its own copy — nobody sees the others.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; border-top: 2px solid var(--color-divider);">
+              <sc-for list="{{ recipients }}" as="r" hint-placeholder-count="2">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 2px solid var(--color-divider);">
+                  <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+                    <span style="font-size: 14px; font-weight: 600; overflow-wrap: anywhere;">{{ r.email }}</span>
+                    <span style="font-size: 12px; color: var(--color-neutral-700);">{{ r.note }}</span>
+                  </div>
+                  <button class="btn btn-ghost" onClick="{{ r.remove }}" style="{{ ghostNoShrinkStyle }}" style-hover="background: var(--color-neutral-200)">Remove</button>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ recipientsFromSecret }}" hint-placeholder-val="{{ false }}">
+              <div style="border: 2px solid var(--color-neutral-400); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+                <span style="font-size: 12px; color: var(--color-neutral-800); text-wrap: pretty;">This edition sends to whatever is in the <strong>{{ secretName }}</strong> secret, so no addresses live in the repo. Move them into the config to edit them here.</span>
+                <button class="btn btn-secondary" onClick="{{ takeOverRecipients }}" style="{{ tapStyle }}">Manage recipients in the config</button>
+              </div>
+            </sc-if>
+            <div style="{{ addRowStyle }}">
+              <div class="field" style="flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+                <label style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">Add an address</label>
+                <input class="input" type="email" inputmode="email" placeholder="name@example.com" value="{{ draftEmail }}" onChange="{{ onDraftEmail }}" onKeyDown="{{ onDraftKey }}" style="{{ inputStyle }}">
+              </div>
+              <button class="btn btn-secondary" onClick="{{ addRecipient }}" style="{{ addBtnStyle }}">Add</button>
+            </div>
+          </section>
+
+          <section style="{{ sectionBStyle }}">
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Schedule</h2>
+              <p style="margin: 0; font-size: 13px; color: var(--color-neutral-700); text-wrap: pretty;">Central time. The job wakes on the days you pick and skips the rest.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px; border-top: 2px solid var(--color-divider); padding-top: 20px;">
+              <label style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">Send time</label>
+              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <input class="input" type="time" value="{{ sendTime }}" onChange="{{ onTime }}" style="{{ timeInputStyle }}">
+                <span style="font-size: 13px; color: var(--color-neutral-700);">America/Chicago</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <label style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">Days</label>
+              <div style="{{ daysRowStyle }}">
+                <sc-for list="{{ days }}" as="d" hint-placeholder-count="7">
+                  <button onClick="{{ d.toggle }}" style="{{ d.style }}">{{ d.label }}</button>
+                </sc-for>
+              </div>
+              <span style="font-size: 12px; color: var(--color-neutral-700);">{{ daySummary }}</span>
+            </div>
+          </section>
+        </div>
+
+        <section style="{{ teamsSectionStyle }}">
+          <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Teams</h2>
+              <p style="margin: 0; font-size: 13px; color: var(--color-neutral-700); text-wrap: pretty;">Order sets the order in the email. The first team leads.</p>
+            </div>
+            <button class="btn btn-primary" onClick="{{ openCatalog }}" style="{{ primaryBlockBtnStyle }}">Add a team</button>
+          </div>
+
+          <div style="display: flex; flex-direction: column; border-top: 2px solid var(--color-divider);">
+            <sc-for list="{{ teams }}" as="t" hint-placeholder-count="5">
+              <div style="{{ teamRowStyle }}">
+                <div style="{{ t.barStyle }}"></div>
+                <span style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; color: var(--color-neutral-600); flex: none;">{{ t.rank }}</span>
+                <div style="{{ teamNameStyle }}">
+                  <span style="font-family: var(--font-heading); font-weight: 700; font-size: 16px;">{{ t.name }}</span>
+                  <span style="{{ leagueTagStyle }}">{{ t.league }}</span>
+                  <sc-if value="{{ t.unwired }}" hint-placeholder-val="{{ false }}">
+                    <span style="display: inline-flex; align-items: center; padding: 3px 8px; border: 2px solid var(--color-neutral-500); color: var(--color-neutral-800); font-family: var(--font-heading); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;">No feed yet</span>
+                  </sc-if>
+                  <sc-if value="{{ t.isLead }}" hint-placeholder-val="{{ false }}">
+                    <span style="{{ leadTagStyle }}">Lead story</span>
+                  </sc-if>
+                </div>
+                <div style="display: flex; gap: 6px; flex: none; margin-left: auto;">
+                  <button class="btn btn-ghost btn-icon" onClick="{{ t.up }}" disabled="{{ t.atTop }}" aria-label="Move up" title="Move up" style="{{ iconBtnStyle }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path></svg>
+                  </button>
+                  <button class="btn btn-ghost btn-icon" onClick="{{ t.down }}" disabled="{{ t.atEnd }}" aria-label="Move down" title="Move down" style="{{ iconBtnStyle }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+                  </button>
+                  <button class="btn btn-ghost" onClick="{{ t.remove }}" style="{{ ghostNoShrinkStyle }}" style-hover="background: var(--color-neutral-200)">Remove</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ noTeams }}" hint-placeholder-val="{{ false }}">
+            <p style="margin: 0; font-size: 14px; color: var(--color-neutral-700);">No teams yet — add at least one or this edition won't send.</p>
+          </sc-if>
+        </section>
+
+        <div style="{{ saveBarStyle }}">
+          <span style="font-size: 13px; color: var(--color-neutral-700); text-wrap: pretty;">{{ statusLine }}</span>
+          <div style="{{ saveActionsStyle }}">
+            <button class="btn btn-ghost" onClick="{{ discard }}" disabled="{{ notDirty }}" style="{{ ghostBtnStyle }}" style-hover="background: var(--color-neutral-200)">Discard</button>
+            <button class="btn btn-primary" onClick="{{ save }}" disabled="{{ notDirty }}" style="{{ saveBtnStyle }}">Save changes</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <sc-if value="{{ catalogOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ modalWrapStyle }}">
+        <div style="{{ catalogCardStyle }}">
+          <div style="{{ modalHeadStyle }}">
+            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+              <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 0; letter-spacing: -0.01em;">Add a team</h3>
+              <p style="margin: 0; font-size: 13px; color: var(--color-neutral-700); text-wrap: pretty;">Catalog teams come with working scores and next-game data.</p>
+            </div>
+            <button class="btn btn-ghost" onClick="{{ closeCatalog }}" style="{{ ghostNoShrinkStyle }}" style-hover="background: var(--color-neutral-200)">Close</button>
+          </div>
+          <div style="{{ modalPadStyle }}">
+            <input class="input" type="search" placeholder="Search teams, leagues, cities…" value="{{ query }}" onChange="{{ onQuery }}" style="{{ inputStyle }}">
+          </div>
+          <div style="{{ catalogScrollStyle }}">
+            <sc-for list="{{ catalog }}" as="c" hint-placeholder-count="6">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 2px solid var(--color-divider);">
+                <div style="display: flex; align-items: center; gap: 14px; min-width: 0;">
+                  <div style="{{ c.barStyle }}"></div>
+                  <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+                    <span style="font-family: var(--font-heading); font-weight: 700; font-size: 15px;">{{ c.name }}</span>
+                    <sc-if value="{{ c.unwired }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size: 11px; color: var(--color-neutral-700);">Needs a feed added to the job before it sends</span>
+                    </sc-if>
+                    <span style="font-size: 12px; color: var(--color-neutral-700);">{{ c.league }}</span>
+                  </div>
+                </div>
+                <button class="btn btn-secondary" onClick="{{ c.add }}" disabled="{{ c.already }}" style="{{ tapNoShrinkStyle }}">{{ c.cta }}</button>
+              </div>
+            </sc-for>
+            <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+              <p style="padding: 24px 0; margin: 0; font-size: 14px; color: var(--color-neutral-700);">Nothing matches “{{ query }}”. Ask for it to be added and it'll show up here.</p>
+            </sc-if>
+          </div>
+          <div style="{{ modalFootStyle }}">
+            <span style="font-size: 12px; color: var(--color-neutral-700);">{{ catalogCount }}</span>
+            <button class="btn btn-primary" onClick="{{ closeCatalog }}" style="{{ primaryTapBtnStyle }}">Done</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ previewOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ previewWrapStyle }}">
+        <div style="{{ previewColStyle }}">
+          <div style="{{ previewBarStyle }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+              <span style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-600);">Preview — unsaved changes included</span>
+              <span style="font-size: 14px; font-weight: 600;">{{ previewSubject }}</span>
+            </div>
+            <button class="btn btn-ghost" onClick="{{ closePreview }}" style="{{ ghostNoShrinkStyle }}" style-hover="background: var(--color-neutral-200)">Close</button>
+          </div>
+          <div style="{{ previewSheetStyle }}">
+            <div style="display: flex; flex-direction: column; gap: 10px; border-bottom: 2px solid var(--color-text); padding-bottom: 18px;">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #14452F;">Daily Sports Brief</span>
+              <span style="font-size: 13px; color: var(--color-neutral-700);">{{ previewDate }}</span>
+            </div>
+            <sc-for list="{{ previewTeams }}" as="p" hint-placeholder-count="5">
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="{{ p.barStyle }}"></div>
+                  <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase;">{{ p.name }}</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                  <span style="{{ previewHeadlineStyle }}">{{ p.headline }}</span>
+                  <span style="font-size: 14px; color: #444141; text-wrap: pretty;">{{ p.summary }}</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 4px; padding-top: 4px;">
+                  <span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600);">Upcoming</span>
+                  <span style="font-size: 14px; color: #201e1d;">{{ p.upcoming }}</span>
+                </div>
+                <div style="border-bottom: 2px solid #d7d3d3; padding-top: 8px;"></div>
+              </div>
+            </sc-for>
+            <span style="font-size: 12px; color: var(--color-neutral-600);">{{ previewFooter }}</span>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ ghOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ modalWrapStyle }}">
+        <div style="{{ catalogCardStyle }}">
+          <div style="{{ modalHeadStyle }}">
+            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+              <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 0; letter-spacing: -0.01em;">Connect to your repo</h3>
+              <p style="margin: 0; font-size: 13px; color: var(--color-neutral-700); text-wrap: pretty;">The panel reads and writes <strong>editions.json</strong> straight to GitHub. Saving here commits a change the 8:25 test job picks up next morning.</p>
+            </div>
+            <button class="btn btn-ghost" onClick="{{ closeGh }}" style="{{ ghostNoShrinkStyle }}" style-hover="background: var(--color-neutral-200)">Close</button>
+          </div>
+
+          <div style="{{ catalogScrollStyle }}">
+            <div style="display: flex; flex-direction: column; gap: 16px; padding: 20px 0;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="field" style="display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+                  <label style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">GitHub username</label>
+                  <input class="input" type="text" autocomplete="off" spellcheck="false" placeholder="your-username" value="{{ ghOwner }}" onChange="{{ onGhOwner }}" style="{{ inputStyle }}">
+                </div>
+                <div class="field" style="display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+                  <label style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">Repository</label>
+                  <input class="input" type="text" autocomplete="off" spellcheck="false" placeholder="daily-brief" value="{{ ghRepo }}" onChange="{{ onGhRepo }}" style="{{ inputStyle }}">
+                </div>
+                <div class="field" style="display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+                  <label style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">Branch</label>
+                  <input class="input" type="text" autocomplete="off" spellcheck="false" placeholder="main" value="{{ ghBranch }}" onChange="{{ onGhBranch }}" style="{{ inputStyle }}">
+                </div>
+                <div class="field" style="display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+                  <label style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">File path</label>
+                  <input class="input" type="text" autocomplete="off" spellcheck="false" placeholder="editions.json" value="{{ ghPath }}" onChange="{{ onGhPath }}" style="{{ inputStyle }}">
+                </div>
+              </div>
+
+              <div class="field" style="display: flex; flex-direction: column; gap: 6px;">
+                <label style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700);">Access token</label>
+                <input class="input" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" value="{{ ghToken }}" onChange="{{ onGhToken }}" style="{{ inputStyle }}">
+                <span style="font-size: 12px; color: var(--color-neutral-700); text-wrap: pretty;">A fine-grained token with <strong>Contents: read and write</strong> on this one repository. It's kept in this browser only — it is never sent anywhere but GitHub. Don't use this panel on a shared computer.</span>
+              </div>
+
+              <div style="border-top: 2px solid var(--color-divider); padding-top: 16px; display: flex; flex-direction: column; gap: 10px;">
+                <span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600);">Status</span>
+                <span style="font-size: 13px; text-wrap: pretty;">{{ ghStatus }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="{{ modalFootStyle }}">
+            <span style="font-size: 12px; color: var(--color-neutral-700);">Loading replaces what's on screen with the repo's copy.</span>
+            <button class="btn btn-primary" onClick="{{ doLoad }}" disabled="{{ ghBusy }}" style="{{ primaryTapBtnStyle }}">Load from GitHub</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280},&quot;accentSource&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Lead team&quot;,&quot;House colors&quot;],&quot;default&quot;:&quot;Lead team&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;viewAs&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Owner — all editions&quot;,&quot;Guest — own edition only&quot;],&quot;default&quot;:&quot;Owner — all editions&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Magic link&quot;,&quot;Panel&quot;],&quot;default&quot;:&quot;Magic link&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;dayLabels&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Single letter&quot;,&quot;Three letter&quot;],&quot;default&quot;:&quot;Single letter&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Display&quot;}}">
+const CATALOG = [
+  { slug: "vikings", name: "Minnesota Vikings", league: "NFL", color: "#4F2683", wired: true },
+  { slug: "ravens", name: "Baltimore Ravens", league: "NFL", color: "#241773", wired: true },
+  { slug: "saints", name: "New Orleans Saints", league: "NFL", color: "#101820", wired: true },
+  { slug: "packers", name: "Green Bay Packers", league: "NFL", color: "#203731" },
+  { slug: "chiefs", name: "Kansas City Chiefs", league: "NFL", color: "#E31837" },
+  { slug: "twins", name: "Minnesota Twins", league: "MLB", color: "#002B5C", wired: true },
+  { slug: "cubs", name: "Chicago Cubs", league: "MLB", color: "#0E3386" },
+  { slug: "guardians", name: "Cleveland Guardians", league: "MLB", color: "#00385D" },
+  { slug: "wolves", name: "Minnesota Timberwolves", league: "NBA", color: "#236192", wired: true },
+  { slug: "magic", name: "Orlando Magic", league: "NBA", color: "#0077C0", wired: true },
+  { slug: "nuggets", name: "Denver Nuggets", league: "NBA", color: "#0E2240" },
+  { slug: "wild", name: "Minnesota Wild", league: "NHL", color: "#154734", wired: true },
+  { slug: "blackhawks", name: "Chicago Blackhawks", league: "NHL", color: "#CF0A2C" },
+  { slug: "avalanche", name: "Colorado Avalanche", league: "NHL", color: "#6F263D" },
+  { slug: "cyclones", name: "Iowa State Athletics", league: "NCAA", color: "#C8102E", wired: true },
+  { slug: "mssstate", name: "Mississippi State Bulldogs", league: "NCAA", color: "#5D1725", wired: true },
+  { slug: "kstate", name: "Kansas State Wildcats", league: "NCAA", color: "#512888", wired: true },
+  { slug: "nebraska", name: "Nebraska Cornhuskers", league: "NCAA", color: "#E41C38" },
+  { slug: "realmadrid", name: "Real Madrid", league: "LaLiga", color: "#00529F", wired: true },
+  { slug: "arsenal", name: "Arsenal", league: "Premier League", color: "#EF0107", wired: true },
+  { slug: "barcelona", name: "FC Barcelona", league: "LaLiga", color: "#A50044" },
+  { slug: "mancity", name: "Manchester City", league: "Premier League", color: "#6CABDD" },
+  { slug: "liverpool", name: "Liverpool", league: "Premier League", color: "#C8102E" },
+];
+
+const COPY = {
+  "Minnesota Vikings": ["Vikings sign veteran guard as line reshuffles again", "The move follows two weeks of rotation at right guard and gives the interior a starter-caliber body before the division stretch.", "Sun Sep 6 · vs Chicago Bears · 12:00 PM CT · FOX"],
+  "Iowa State Athletics": ["Cyclones climb after road win in Ames opener", "A defense that forced three turnovers did most of the work, and the ranking follows a two-score fourth quarter.", "Sat Sep 12 · at Kansas Jayhawks · 2:30 PM CT · ESPN2"],
+  "Minnesota Timberwolves": ["Wolves finalize camp roster with two-way signing", "Front office adds wing depth ahead of media day, filling the last open spot on the training-camp sheet.", "Mon Oct 5 · vs Denver Nuggets · 7:00 PM CT · NBA TV"],
+  "Minnesota Wild": ["Wild open camp with blue line still unsettled", "Two rookies are in the mix for a bottom-pairing job that was expected to be filled in July.", "Thu Oct 8 · at Dallas Stars · 7:30 PM CT · ESPN+"],
+  "Minnesota Twins": ["Twins take series finale behind six shutout innings", "The rotation's most consistent arm this month worked around four hits and struck out eight.", "Fri Sep 4 · vs Detroit Tigers · 7:10 PM CT · FanDuel Sports"],
+  "Real Madrid": ["Madrid rest starters ahead of Champions League midweek", "The manager confirmed rotation for the weekend, with two regulars managing knocks from the international break.", "Sat Sep 12 · vs Real Sociedad · 9:00 AM CT · ESPN+"],
+  "New Orleans Saints": ["Saints trim practice squad, promote returner", "Special teams gets a settled answer at kick return after a preseason spent auditioning three players.", "Sun Sep 6 · at Atlanta Falcons · 12:00 PM CT · FOX"],
+  "Arsenal": ["Arsenal close window with a late loan exit", "The academy midfielder leaves for regular minutes in the Championship after a summer on the bench.", "Sun Sep 13 · at Tottenham · 10:30 AM CT · USA"],
+  "Orlando Magic": ["Magic pick up option on young forward", "The team locks in a rotation piece who started 41 games last season before an ankle injury.", "Wed Oct 7 · vs Miami Heat · 6:00 PM CT · Bally Sports"],
+  "Baltimore Ravens": ["Ravens list two starters as limited in first week", "Both were on the field for individual work and are expected to play Sunday.", "Sun Sep 6 · vs Cleveland Browns · 12:00 PM CT · CBS"],
+  "Mississippi State Bulldogs": ["Bulldogs find their run game in week two", "Two hundred yards on the ground was the largest total in three seasons, and it came without the starting tailback.", "Sat Sep 12 · at LSU · 6:00 PM CT · SEC Network"],
+  "Kansas State Wildcats": ["Wildcats settle quarterback rotation before Big 12 play", "The staff named a starter after a two-week competition that stayed close through the opener.", "Sat Sep 12 · vs Iowa State · 2:30 PM CT · ESPN2"],
+};
+
+const DAY_ONE = ["S", "M", "T", "W", "T", "F", "S"];
+const DAY_THREE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+const t = (name) => {
+  const c = CATALOG.find((x) => x.name === name);
+  return c
+    ? { slug: c.slug, name, league: c.league, color: c.color, wired: !!c.wired }
+    : { slug: "", name, league: "—", color: "#7d7979", wired: false };
+};
+
+const DAY_KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+// GitHub's contents API hands back base64; these two survive non-ASCII team names.
+const b64encode = (s) => btoa(String.fromCharCode(...new TextEncoder().encode(s)));
+const b64decode = (s) => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g, "")), (c) => c.charCodeAt(0)));
+
+const fromSlug = (slug) => {
+  const c = CATALOG.find((x) => x.slug === slug);
+  return c
+    ? { slug, name: c.name, league: c.league, color: c.color, wired: !!c.wired }
+    : { slug, name: slug, league: "unknown", color: "#7d7979", wired: false };
+};
+
+// editions.json -> panel state
+function configToState(cfg) {
+  const eds = {};
+  const order = [];
+  for (const e of cfg.editions || []) {
+    order.push(e.key);
+    eds[e.key] = {
+      key: e.key,
+      label: e.label || e.key,
+      owner: (e.to && e.to[0]) || "",
+      toEnv: e.toEnv || "",
+      subjectTag: e.subjectTag || "",
+      paused: e.paused === true,
+      recipients: (e.to || []).map((email) => ({ email, note: "From editions.json" })),
+      teams: (e.teams || []).map(fromSlug),
+      time: e.time || "08:10",
+      days: DAY_KEYS.map((k) => (e.days || DAY_KEYS).includes(k)),
+    };
+  }
+  return { eds, order };
+}
+
+// panel state -> editions.json (key order kept stable for a readable diff)
+function stateToConfig(eds, order) {
+  return {
+    _comment: "Edited by the Daily Brief control panel. v1 (daily-brief.js) does not read this file.",
+    editions: order.map((k) => {
+      const e = eds[k];
+      const out = { key: e.key, label: e.label };
+      if (e.toEnv) out.toEnv = e.toEnv;
+      else out.to = e.recipients.map((r) => r.email);
+      if (e.subjectTag) out.subjectTag = e.subjectTag;
+      out.time = e.time;
+      out.days = DAY_KEYS.filter((_, i) => e.days[i]);
+      out.paused = !!e.paused;
+      out.teams = e.teams.map((x) => x.slug).filter(Boolean);
+      return out;
+    }),
+  };
+}
+
+const SEED = {
+  mn: {
+    key: "mn", label: "Minnesota", owner: "you@gmail.com",
+    recipients: [{ email: "you@gmail.com", note: "Owner · added Aug 2" }, { email: "dad@gmail.com", note: "Added Aug 14" }],
+    teams: ["Minnesota Vikings", "Iowa State Athletics", "Minnesota Timberwolves", "Minnesota Wild", "Minnesota Twins"].map(t),
+    time: "08:10", days: [true, true, true, true, true, true, true],
+  },
+  friend: {
+    key: "friend", label: "Iowa State & Clubs", owner: "zach@gmail.com",
+    recipients: [{ email: "zach@gmail.com", note: "Owner · added Aug 21" }],
+    teams: ["Iowa State Athletics", "Real Madrid", "New Orleans Saints", "Arsenal", "Orlando Magic"].map(t),
+    time: "07:30", days: [false, true, true, true, true, true, false],
+  },
+  third: {
+    key: "third", label: "Ravens, Bulldogs & Wildcats", owner: "sister@gmail.com",
+    recipients: [{ email: "sister@gmail.com", note: "Owner · added Aug 28" }, { email: "brotherinlaw@gmail.com", note: "Added Aug 29" }],
+    teams: ["Baltimore Ravens", "Mississippi State Bulldogs", "Kansas State Wildcats", "Minnesota Vikings", "Minnesota Wild"].map(t),
+    time: "08:10", days: [true, false, false, false, false, true, true],
+  },
+};
+
+/* The brand mark is fixed forest green everywhere. The panel's accent is
+   borrowed from the edition's LEAD team, so each person's control panel wears
+   their own colors while the identity stays constant. */
+const BRAND = "#14452F";
+
+const relLum = (hex) => {
+  const ch = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+    .map((v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));
+  return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2];
+};
+
+const clone = (o) => JSON.parse(JSON.stringify(o));
+const fmtTime = (hhmm) => {
+  const [h, m] = String(hhmm || "08:10").split(":").map(Number);
+  const hr = h % 12 === 0 ? 12 : h % 12;
+  return `${hr}:${String(m).padStart(2, "0")} ${h >= 12 ? "PM" : "AM"}`;
+};
+
+class Component extends DCLogic {
+  state = {
+    screen: null, sent: false, email: "", session: null,
+    active: "mn", eds: clone(SEED), saved: clone(SEED),
+    draftEmail: "", query: "", catalogOpen: false, previewOpen: false, status: "",
+    order: ["mn", "friend", "third"],
+    gh: { owner: "", repo: "", branch: "main", path: "editions.json", token: "" },
+    sha: null, ghOpen: false, ghBusy: false, ghStatus: "",
+    w: typeof window !== "undefined" ? window.innerWidth : 1200,
+  };
+
+  componentDidMount() {
+    try {
+      const saved = JSON.parse(localStorage.getItem("dbc.github") || "null");
+      if (saved && saved.repo) {
+        this.setState({ gh: { ...this.state.gh, ...saved } });
+        if (saved.token) setTimeout(() => this.loadFromGitHub(), 0);
+      }
+    } catch (_) {}
+    this._onResize = () => {
+      const w = window.innerWidth;
+      if (Math.abs(w - this.state.w) > 4) this.setState({ w });
+    };
+    window.addEventListener("resize", this._onResize);
+    this._onResize();
+  }
+
+  componentWillUnmount() { window.removeEventListener("resize", this._onResize); this.lockScroll(false); }
+
+  // A full-screen sheet on a phone must not let the page scroll behind it —
+  // that's what made the sticky bars look frozen underneath the dialog.
+  lockScroll(on) {
+    try { document.body.style.overflow = on ? "hidden" : ""; } catch (_) {}
+  }
+
+  componentDidUpdate() {
+    this.lockScroll(this.state.catalogOpen || this.state.previewOpen || this.state.ghOpen);
+  }
+
+  /* Which edition the signed-in address belongs to, if any. A magic link is
+     scoped to the address that requested it, so the address decides the scope —
+     the viewAs prop only seeds the demo before anyone has "signed in". */
+  get sessionKey() {
+    const s = (this.state.session || "").trim().toLowerCase();
+    if (!s) return null;
+    const hit = Object.values(this.state.eds).find(
+      (e) => e.owner.toLowerCase() === s || e.recipients.some((r) => r.email.toLowerCase() === s)
+    );
+    return hit ? hit.key : null;
+  }
+
+  get isOwner() {
+    const k = this.sessionKey;
+    if (k) return k === "mn";
+    return (this.props.viewAs ?? "Owner — all editions").startsWith("Owner");
+  }
+
+  get visibleKeys() {
+    const order = this.state.order.filter((k) => this.state.eds[k]);
+    if (this.isOwner) return order;
+    return [this.sessionKey || order[0]];
+  }
+
+  get connected() { return !!this.state.sha; }
+
+  ghHeaders() {
+    return {
+      authorization: `Bearer ${this.state.gh.token.trim()}`,
+      accept: "application/vnd.github+json",
+      "x-github-api-version": "2022-11-28",
+    };
+  }
+
+  ghUrl() {
+    const g = this.state.gh;
+    return `https://api.github.com/repos/${g.owner.trim()}/${g.repo.trim()}/contents/${(g.path || "editions.json").trim()}`;
+  }
+
+  ghSet(k) {
+    return (e) => {
+      const gh = { ...this.state.gh, [k]: e.target.value };
+      this.setState({ gh });
+      // Token included: this is the user's own browser, and it never leaves it.
+      try { localStorage.setItem("dbc.github", JSON.stringify(gh)); } catch (_) {}
+    };
+  }
+
+  async loadFromGitHub() {
+    const g = this.state.gh;
+    const blanks = [
+      !g.owner.trim() && "GitHub username",
+      !g.repo.trim() && "Repository",
+      !g.token.trim() && "Access token",
+    ].filter(Boolean);
+    if (blanks.length) {
+      this.setState({ ghStatus: `Still empty: ${blanks.join(", ")}.` });
+      return;
+    }
+    this.setState({ ghBusy: true, ghStatus: "Reading editions.json…" });
+    try {
+      const res = await fetch(`${this.ghUrl()}?ref=${encodeURIComponent(g.branch.trim() || "main")}`, { headers: this.ghHeaders() });
+      if (res.status === 404) throw new Error("file not found on that branch — commit editions.json first");
+      if (res.status === 401 || res.status === 403) throw new Error("token rejected — needs Contents: read and write on this repo");
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      const j = await res.json();
+      const { eds, order } = configToState(JSON.parse(b64decode(j.content)));
+      if (!order.length) throw new Error("editions.json has no editions");
+      this.setState({
+        eds, order, saved: clone(eds), sha: j.sha, active: order[0],
+        ghBusy: false, status: "",
+        ghStatus: `Loaded ${order.length} edition(s) from ${g.owner}/${g.repo}`,
+      });
+    } catch (err) {
+      this.setState({ ghBusy: false, sha: null, ghStatus: `Load failed — ${err.message}` });
+    }
+  }
+
+  async saveToGitHub() {
+    const g = this.state.gh;
+    this.setState({ ghBusy: true, ghStatus: "Committing…", status: "Saving to GitHub…" });
+    try {
+      const body = {
+        message: "Update editions.json from control panel",
+        content: b64encode(JSON.stringify(stateToConfig(this.state.eds, this.state.order), null, 2) + "\n"),
+        sha: this.state.sha,
+        branch: g.branch.trim() || "main",
+      };
+      const res = await fetch(this.ghUrl(), { method: "PUT", headers: this.ghHeaders(), body: JSON.stringify(body) });
+      if (res.status === 409) throw new Error("the file changed on GitHub — reload, then save again");
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      const j = await res.json();
+      this.setState((s) => ({
+        saved: clone(s.eds), sha: j.content.sha, ghBusy: false,
+        ghStatus: "Committed to GitHub.",
+        status: "Saved to GitHub · tomorrow's run picks this up.",
+      }));
+    } catch (err) {
+      this.setState({ ghBusy: false, ghStatus: `Save failed — ${err.message}`, status: `Save failed — ${err.message}` });
+    }
+  }
+
+  get fallbackEmail() { return this.isOwner ? "you@gmail.com" : "zach@gmail.com"; }
+
+  get ed() { return this.state.eds[this.activeKey]; }
+
+  get activeKey() {
+    const keys = this.visibleKeys;
+    return keys.includes(this.state.active) ? this.state.active : keys[0];
+  }
+
+  get screen() {
+    return this.state.screen ?? ((this.props.startScreen ?? "Magic link") === "Panel" ? "app" : "gate");
+  }
+
+  get dirty() { return JSON.stringify(this.state.eds) !== JSON.stringify(this.state.saved); }
+
+  mutate(fn) {
+    this.setState((s) => {
+      const eds = clone(s.eds);
+      fn(eds[this.activeKey], eds);
+      return { eds, status: "" };
+    });
+  }
+
+  addDraft() {
+    const v = this.state.draftEmail.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) { this.setState({ status: "That doesn't look like an email address." }); return; }
+    this.mutate((e) => { if (!e.recipients.some((r) => r.email === v)) e.recipients.push({ email: v, note: "Added just now" }); });
+    this.setState({ draftEmail: "" });
+  }
+
+  renderVals() {
+    const ed = this.ed;
+    const keys = this.visibleKeys;
+    const dayNames = (this.props.dayLabels ?? "Single letter") === "Three letter" ? DAY_THREE : DAY_ONE;
+    const bar = (color, h) => `width: 6px; height: ${h}px; background: ${color}; flex: none;`;
+
+    // Single breakpoint: phone/narrow-tablet vs desktop. Everything structural
+    // reads off `m`, so the panel works at 375px and at 1440px with one layout.
+    const m = this.state.w < 900;
+    const pad = m ? "20px" : "40px";
+    const tap = m ? "min-height: 44px; " : "";
+
+    const uniform = (this.props.accentSource ?? "Lead team") !== "Lead team";
+    const lead = ed.teams[0];
+    const accent = uniform || !lead ? BRAND : lead.color;
+    // Sky-blue and gold team colors can't carry white type; flip to ink instead.
+    const onAccent = relLum(accent) > 0.42 ? "#16181A" : "#FFFFFF";
+    const tint = `color-mix(in srgb, ${accent} 14%, #ffffff)`;
+    const primaryBtn = `background: ${accent}; border: 2px solid ${accent}; color: ${onAccent}; `;
+    const brandBtn = `background: ${BRAND}; border: 2px solid ${BRAND}; color: #ffffff; `;
+
+    const activeDays = ed.days.map((on, i) => (on ? DAY_THREE[i] : null)).filter(Boolean);
+    const daySummary =
+      activeDays.length === 7 ? "Every day" :
+      activeDays.length === 0 ? "No days selected — this edition is paused" :
+      activeDays.length === 5 && !ed.days[0] && !ed.days[6] ? "Weekdays only" :
+      activeDays.join(", ");
+
+    const q = this.state.query.trim().toLowerCase();
+    const owned = new Set(ed.teams.map((x) => x.name));
+    const catalog = CATALOG.filter((c) => !q || `${c.name} ${c.league}`.toLowerCase().includes(q)).map((c) => ({
+      name: c.name, league: c.league,
+      barStyle: bar(c.color, 30),
+      already: owned.has(c.name),
+      cta: owned.has(c.name) ? "Added" : "Add",
+      unwired: !c.wired,
+      add: () => this.mutate((e) => { if (!e.teams.some((x) => x.name === c.name)) e.teams.push({ slug: c.slug, name: c.name, league: c.league, color: c.color, wired: !!c.wired }); }),
+    }));
+
+    const previewTeams = ed.teams.map((tm) => {
+      const c = COPY[tm.name] || [`${tm.name} headline of the day`, "A two-line summary of the lead story runs here, pulled from the feed and trimmed to fit.", "No game scheduled in the next 21 days"];
+      return { name: tm.name, barStyle: bar(tm.color, 18), headline: c[0], summary: c[1], upcoming: c[2] };
+    });
+
+    return {
+      /* ---------- gate ---------- */
+      isGate: this.screen === "gate",
+      isApp: this.screen === "app",
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      email: this.state.email,
+      onEmail: (e) => this.setState({ email: e.target.value }),
+      sendLink: () => this.setState({ sent: true, email: this.state.email.trim() || this.fallbackEmail }),
+      reset: () => this.setState({ sent: false }),
+      enter: () => this.setState({ screen: "app", session: this.state.email }),
+      gateStats: [
+        { label: "Editions sending", value: "3" },
+        { label: "Teams tracked", value: "13" },
+        { label: "Daily send window", value: "8:10 AM CT" },
+        { label: "Missed sends since Aug", value: "0" },
+      ],
+      gateGridStyle: m
+        ? "min-height: 100vh; display: flex; flex-direction: column;"
+        : "min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;",
+      gateLeftStyle: m
+        ? "padding: 32px 20px 40px; display: flex; flex-direction: column; gap: 36px;"
+        : "padding: 64px 56px; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; border-right: 2px solid var(--color-divider);",
+      gateRightStyle: m
+        ? "padding: 32px 20px 40px; display: flex; flex-direction: column; gap: 20px; background: var(--color-surface); border-top: 2px solid var(--color-divider);"
+        : "padding: 64px 56px; display: flex; flex-direction: column; gap: 28px; justify-content: center; background: var(--color-surface);",
+      gateTitleStyle: `font-family: var(--font-heading); font-weight: 800; font-size: ${m ? "34px" : "52px"}; line-height: 1.03; letter-spacing: -0.02em; margin: 0; max-width: 15ch; text-wrap: pretty;`,
+
+      /* ---------- shared control styles ---------- */
+      tapStyle: tap,
+      tapNoShrinkStyle: `${tap}flex: none;`,
+      iconBtnStyle: `${tap}min-width: ${m ? "44px" : "40px"}; display: inline-flex; align-items: center; justify-content: center; color: var(--color-text); background: transparent; border: 2px solid var(--color-neutral-300);`,
+      ghostBtnStyle: `${tap}color: var(--color-text); background: transparent; border: 2px solid transparent;`,
+      ghostNoShrinkStyle: `${tap}flex: none; color: var(--color-text); background: transparent; border: 2px solid transparent;`,
+      leagueTagStyle: "display: inline-flex; align-items: center; padding: 3px 8px; background: transparent; border: 2px solid var(--color-neutral-400); color: var(--color-neutral-800); font-family: var(--font-heading); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;",
+      blockOnMobileStyle: m ? "min-height: 44px; width: 100%;" : "align-self: flex-start;",
+      primaryBlockBtnStyle: primaryBtn + (m ? "min-height: 44px; width: 100%;" : "align-self: flex-start;"),
+      primaryTapBtnStyle: primaryBtn + tap,
+      brandBlockBtnStyle: brandBtn + (m ? "min-height: 44px; width: 100%;" : "align-self: flex-start;"),
+      brandTapBtnStyle: brandBtn + tap,
+      leadTagStyle: `display: inline-flex; align-items: center; padding: 3px 8px; background: ${tint}; border: 2px solid ${accent}; color: var(--color-text); font-family: var(--font-heading); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;`,
+      accentNote: uniform || !lead ? "House colors" : `Accent from lead team · ${lead.name}`,
+      accentNoteStyle: `font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-700); border-left: 6px solid ${accent}; padding-left: 8px; margin-top: 2px;`,
+      inputStyle: `width: 100%; ${tap}font-size: 16px;`,
+      timeInputStyle: `width: ${m ? "100%" : "150px"}; ${tap}font-size: 16px;`,
+      addRowStyle: m
+        ? "display: flex; flex-direction: column; gap: 12px; align-items: stretch;"
+        : "display: flex; gap: 10px; align-items: flex-end;",
+      addBtnStyle: m ? "min-height: 44px; width: 100%;" : "flex: none;",
+
+      /* ---------- shell ---------- */
+      shellStyle: m ? "display: flex; flex-direction: column;" : "min-height: 100vh; display: grid; grid-template-columns: 264px 1fr;",
+      asideStyle: m
+        ? "border-bottom: 2px solid var(--color-divider); padding: 16px 20px; display: flex; flex-direction: column; gap: 16px; position: sticky; top: 0; z-index: 20; background: var(--color-bg);"
+        : "border-right: 2px solid var(--color-divider); padding: 28px 24px; display: flex; flex-direction: column; gap: 32px; position: sticky; top: 0; align-self: start; height: 100vh;",
+      asideTopStyle: m
+        ? "display: flex; align-items: center; justify-content: space-between; gap: 16px;"
+        : "display: flex; flex-direction: column; gap: 32px;",
+      identityStyle: m
+        ? "display: flex; flex-direction: column; align-items: flex-end; gap: 0; text-align: right; min-width: 0;"
+        : "display: flex; flex-direction: column; gap: 6px; order: 3;",
+      editionsBlockStyle: m ? "display: flex; flex-direction: column; gap: 8px;" : "display: flex; flex-direction: column; gap: 12px;",
+      editionsLabelStyle: `font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-600); ${m && keys.length < 2 ? "display: none;" : ""}`,
+      editionsListStyle: m
+        ? "display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; -webkit-overflow-scrolling: touch;"
+        : "display: flex; flex-direction: column;",
+
+      sessionEmail: this.state.session || this.fallbackEmail,
+      roleNote: this.isOwner ? "Owner — can edit every edition" : "Can edit your own edition only",
+      editionList: keys.map((k) => {
+        const e = this.state.eds[k];
+        const on = k === this.activeKey;
+        // Each edition's chip wears its own lead-team color, so the switcher
+        // previews where you're going.
+        const navAccent = uniform || !e.teams[0] ? BRAND : e.teams[0].color;
+        return {
+          key: k, label: e.label,
+          summary: `${e.teams.length} teams · ${e.recipients.length} recipient${e.recipients.length === 1 ? "" : "s"}`,
+          select: () => this.setState({ active: k, status: "" }),
+          navStyle: m
+            ? `display: flex; flex-direction: column; gap: 2px; align-items: flex-start; text-align: left; flex: none; min-height: 44px; padding: 8px 14px; cursor: pointer; font-family: var(--font-body); border: 2px solid ${on ? navAccent : "var(--color-neutral-400)"}; background: ${on ? `color-mix(in srgb, ${navAccent} 14%, #ffffff)` : "transparent"}; color: var(--color-text);`
+            : `display: flex; flex-direction: column; gap: 3px; align-items: flex-start; text-align: left; width: 100%; padding: 12px 14px; cursor: pointer; font-family: var(--font-body); border: none; border-left: ${on ? `4px solid ${navAccent}` : "4px solid transparent"}; background: ${on ? "var(--color-surface)" : "transparent"}; color: var(--color-text);`,
+        };
+      }),
+
+      /* ---------- header ---------- */
+      ed: { label: ed.label },
+      nextSend: `Tomorrow, ${fmtTime(ed.time)} CT`,
+      headerStyle: `border-bottom: 2px solid var(--color-divider); padding: ${m ? "20px 20px" : "24px 40px"}; display: flex; align-items: ${m ? "stretch" : "flex-end"}; justify-content: space-between; gap: ${m ? "16px" : "24px"}; flex-direction: ${m ? "column" : "row"}; flex-wrap: wrap;`,
+      headerActionsStyle: m
+        ? "display: flex; align-items: center; justify-content: space-between; gap: 16px;"
+        : "display: flex; align-items: center; gap: 24px;",
+      pageTitleStyle: `font-family: var(--font-heading); font-weight: 800; font-size: ${m ? "24px" : "30px"}; line-height: 1.05; letter-spacing: -0.015em; margin: 0; text-wrap: pretty;`,
+
+      /* ---------- two-up sections ---------- */
+      colsStyle: m
+        ? "display: flex; flex-direction: column;"
+        : "display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--color-divider);",
+      sectionAStyle: `padding: ${m ? "24px 20px" : "32px 40px"}; display: flex; flex-direction: column; gap: 20px; ${m ? "border-bottom: 2px solid var(--color-divider);" : "border-right: 2px solid var(--color-divider);"}`,
+      sectionBStyle: `padding: ${m ? "24px 20px" : "32px 40px"}; display: flex; flex-direction: column; gap: 20px; ${m ? "border-bottom: 2px solid var(--color-divider);" : ""}`,
+      daysRowStyle: m
+        ? "display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;"
+        : "display: flex; gap: 8px; flex-wrap: wrap;",
+
+      /* ---------- teams ---------- */
+      teamsSectionStyle: `padding: ${m ? "24px 20px 32px" : "32px 40px 40px"}; display: flex; flex-direction: column; gap: 20px;`,
+      teamRowStyle: `display: flex; align-items: center; flex-wrap: wrap; gap: ${m ? "10px" : "16px"}; padding: ${m ? "14px 0" : "14px 0"}; border-bottom: 2px solid var(--color-divider);`,
+      teamNameStyle: `display: flex; align-items: center; gap: 10px; min-width: 0; flex-wrap: wrap; ${m ? "flex: 1 1 60%;" : "flex: 1 1 auto;"}`,
+
+      /* ---------- save bar ---------- */
+      saveBarStyle: `position: sticky; bottom: 0; z-index: 10; border-top: 2px solid var(--color-divider); background: var(--color-bg); padding: ${m ? "14px 20px" : "18px 40px"}; display: flex; align-items: center; justify-content: space-between; gap: ${m ? "12px" : "20px"}; flex-direction: ${m ? "column" : "row"}; align-items: ${m ? "stretch" : "center"};`,
+      saveActionsStyle: m ? "display: flex; gap: 10px;" : "display: flex; gap: 12px;",
+      saveBtnStyle: primaryBtn + (m ? "min-height: 44px; flex: 1;" : ""),
+
+      /* ---------- catalog modal ---------- */
+      catalogOpen: this.state.catalogOpen,
+      openCatalog: () => this.setState({ catalogOpen: true, query: "" }),
+      closeCatalog: () => this.setState({ catalogOpen: false }),
+      query: this.state.query,
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      catalog,
+      noResults: catalog.length === 0,
+      catalogCount: `${ed.teams.length} teams in ${ed.label}`,
+      modalWrapStyle: m
+        ? "position: fixed; inset: 0; z-index: 60; background: var(--color-bg); display: flex; flex-direction: column;"
+        : "position: fixed; inset: 0; z-index: 60; background: color-mix(in srgb, #201e1d 50%, transparent); display: flex; align-items: flex-start; justify-content: center; padding: 64px 24px; overflow: auto;",
+      catalogCardStyle: m
+        ? "width: 100%; flex: 1; min-height: 0; background: var(--color-bg); display: flex; flex-direction: column; margin: 0; padding: 0; max-width: none;"
+        : "width: 100%; max-width: 620px; background: var(--color-bg); border: 2px solid var(--color-text); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; margin: 0; padding: 0; animation: riseIn 200ms ease-out;",
+      modalHeadStyle: `padding: ${m ? "18px 20px" : "24px 28px"}; border-bottom: 2px solid var(--color-divider); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;`,
+      modalPadStyle: `padding: ${m ? "16px 20px" : "20px 28px"}; border-bottom: 2px solid var(--color-divider);`,
+      catalogScrollStyle: m
+        ? "flex: 1; overflow: auto; padding: 0 20px; -webkit-overflow-scrolling: touch;"
+        : "max-height: 46vh; overflow: auto; padding: 0 28px;",
+      modalFootStyle: `padding: ${m ? "14px 20px" : "18px 28px"}; border-top: 2px solid var(--color-divider); display: flex; justify-content: space-between; align-items: center; gap: 16px;`,
+
+      /* ---------- email preview ---------- */
+      previewOpen: this.state.previewOpen,
+      openPreview: () => this.setState({ previewOpen: true }),
+      closePreview: () => this.setState({ previewOpen: false }),
+      previewSubject: `Daily Brief — ${ed.label}`,
+      previewDate: "Thursday, September 3, 2026 · Central time",
+      previewFooter: `Sent to ${ed.recipients.length} recipient${ed.recipients.length === 1 ? "" : "s"} · manage this brief from the control panel`,
+      previewTeams,
+      previewWrapStyle: m
+        ? "position: fixed; inset: 0; z-index: 70; background: var(--color-bg); display: flex; flex-direction: column;"
+        : "position: fixed; inset: 0; z-index: 70; background: color-mix(in srgb, #201e1d 50%, transparent); display: flex; align-items: flex-start; justify-content: center; padding: 48px 24px; overflow: auto;",
+      previewColStyle: m
+        ? "width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: auto; -webkit-overflow-scrolling: touch;"
+        : "width: 100%; max-width: 700px; display: flex; flex-direction: column; gap: 16px; animation: riseIn 200ms ease-out;",
+      previewBarStyle: m
+        ? "position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--color-bg); border-bottom: 2px solid var(--color-text); padding: 14px 20px; z-index: 2;"
+        : "display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--color-bg); border: 2px solid var(--color-text); padding: 16px 20px;",
+      previewSheetStyle: m
+        ? "background: #ffffff; padding: 24px 20px 40px; display: flex; flex-direction: column; gap: 24px; flex: 1;"
+        : "background: #ffffff; border: 2px solid var(--color-text); padding: 36px 40px; display: flex; flex-direction: column; gap: 28px;",
+      previewHeadlineStyle: `font-family: var(--font-heading); font-weight: 700; font-size: ${m ? "18px" : "19px"}; line-height: 1.2; color: #111111; text-wrap: pretty;`,
+
+      /* ---------- recipients / schedule / status ---------- */
+      recipients: ed.recipients.map((r, i) => ({
+        email: r.email, note: r.note,
+        remove: () => this.mutate((e) => e.recipients.splice(i, 1)),
+      })),
+      draftEmail: this.state.draftEmail,
+      onDraftEmail: (e) => this.setState({ draftEmail: e.target.value }),
+      onDraftKey: (e) => { if (e.key === "Enter") this.addDraft(); },
+      addRecipient: () => this.addDraft(),
+      sendTime: ed.time,
+      onTime: (e) => { const v = e.target.value; this.mutate((x) => { x.time = v; }); },
+      days: ed.days.map((on, i) => ({
+        label: dayNames[i],
+        toggle: () => this.mutate((e) => { e.days[i] = !e.days[i]; }),
+        style: `min-width: 44px; height: 44px; padding: 0 ${m ? "2px" : "10px"}; cursor: pointer; font-family: var(--font-heading); font-weight: 700; font-size: 13px; border: 2px solid ${on ? accent : "var(--color-neutral-400)"}; background: ${on ? accent : "transparent"}; color: ${on ? onAccent : "var(--color-neutral-700)"};`,
+      })),
+      daySummary,
+      teams: ed.teams.map((tm, i) => ({
+        name: tm.name, league: tm.league,
+        unwired: tm.wired === false,
+        rank: String(i + 1).padStart(2, "0"),
+        isLead: i === 0,
+        barStyle: bar(tm.color, 34),
+        atTop: i === 0,
+        atEnd: i === ed.teams.length - 1,
+        up: () => this.mutate((e) => { if (i > 0) e.teams.splice(i - 1, 0, e.teams.splice(i, 1)[0]); }),
+        down: () => this.mutate((e) => { if (i < e.teams.length - 1) e.teams.splice(i + 1, 0, e.teams.splice(i, 1)[0]); }),
+        remove: () => this.mutate((e) => e.teams.splice(i, 1)),
+      })),
+      noTeams: ed.teams.length === 0,
+      statusLine: this.state.status || (this.dirty ? (this.connected ? "Unsaved changes — save to commit them to GitHub." : "Unsaved changes — nothing sends until you save.") : this.connected ? `Synced with ${this.state.gh.owner}/${this.state.gh.repo} · next run ${fmtTime(ed.time)} CT` : `All changes saved · next run ${fmtTime(ed.time)} CT`),
+      connectLabel: this.connected ? "Connected" : "Not connected",
+      connectStyle: `display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; margin-top: 6px; min-height: 32px; padding: 0 10px; cursor: pointer; font-family: var(--font-body); font-size: 12px; background: transparent; color: var(--color-text); border: 2px solid ${this.connected ? BRAND : "var(--color-neutral-400)"};`,
+      connectDotStyle: `width: 8px; height: 8px; flex: none; background: ${this.connected ? BRAND : "var(--color-neutral-500)"};`,
+      openGh: () => this.setState({ ghOpen: true }),
+      closeGh: () => this.setState({ ghOpen: false }),
+      ghOpen: this.state.ghOpen,
+      ghBusy: this.state.ghBusy,
+      ghNotBusy: !this.state.ghBusy,
+      ghStatus: this.state.ghStatus || "Not connected — the panel is running on sample data.",
+      ghOwner: this.state.gh.owner,
+      ghRepo: this.state.gh.repo,
+      ghBranch: this.state.gh.branch,
+      ghPath: this.state.gh.path,
+      ghToken: this.state.gh.token,
+      onGhOwner: this.ghSet("owner"),
+      onGhRepo: this.ghSet("repo"),
+      onGhBranch: this.ghSet("branch"),
+      onGhPath: this.ghSet("path"),
+      onGhToken: this.ghSet("token"),
+      doLoad: () => this.loadFromGitHub(),
+      secretName: ed.toEnv,
+      recipientsFromSecret: !!ed.toEnv,
+      recipientsEditable: !ed.toEnv,
+      takeOverRecipients: () => this.mutate((e) => { e.toEnv = ""; }),
+      notDirty: !this.dirty,
+      save: () => (this.connected ? this.saveToGitHub() : this.setState((s) => ({ saved: clone(s.eds), status: "Saved. The next run picks this up." }))),
+      discard: () => this.setState((s) => ({ eds: clone(s.saved), status: "" })),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
